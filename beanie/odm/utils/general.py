@@ -33,6 +33,7 @@ def get_model(dot_path: str) -> Type["DocType"]:
 
 
 async def init_beanie(
+    client: AsyncIOMotorClient = None,
     database: AsyncIOMotorDatabase = None,
     connection_string: str = None,
     document_models: List[Union[Type["DocType"], str]] = None,
@@ -41,6 +42,7 @@ async def init_beanie(
     """
     Beanie initialization
 
+    :param client: AsyncIOMotorClient - motor client instance
     :param database: AsyncIOMotorDatabase - motor database instance
     :param connection_string: str - MongoDB connection string
     :param document_models: List[Union[Type[DocType], str]] - model classes
@@ -58,8 +60,10 @@ async def init_beanie(
 
     if document_models is None:
         raise ValueError("document_models parameter must be set")
-    if connection_string is not None:
-        database = AsyncIOMotorClient(connection_string)[
+
+    if connection_string is not None and database is None:
+        client = client or AsyncIOMotorClient(connection_string)
+        database = client[
             URL(connection_string).path[1:]
         ]
 

@@ -51,6 +51,6 @@ async def init():
     )
 
     # Init beanie with the Product document class
-    await init_beanie(database=client.db_name, document_models=[Product])
+    await init_beanie(client=client, database=client.db_name, document_models=[Product])
 
 ```

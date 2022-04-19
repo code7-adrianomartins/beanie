@@ -13,7 +13,7 @@ async def init():
     )
 
     # Init beanie with the Product document class and a database
-    await init_beanie(database=client.db_name, document_models=[Sample])
+    await init_beanie(client=client, database=client.db_name, document_models=[Sample])
 ```
 
 This creates the collection (if needed) and sets up any indexes that are defined.

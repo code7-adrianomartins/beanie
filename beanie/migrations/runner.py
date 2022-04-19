@@ -146,6 +146,7 @@ class MigrationNode:
                 for migration in migrations:
                     for model in migration.models:
                         await init_beanie(
+                            client=client,
                             database=db,
                             document_models=[model],  # type: ignore
                             allow_index_dropping=allow_index_dropping,
@@ -171,9 +172,10 @@ class MigrationNode:
         names.sort()
 
         db = DBHandler.get_db()
-        await init_beanie(
-            database=db, document_models=[MigrationLog]  # type: ignore
-        )
+        client = DBHandler.get_cli()
+        await init_beanie(client=client,
+                          database=db, document_models=[MigrationLog]  # type: ignore
+                          )
         current_migration = await MigrationLog.find_one({"is_current": True})
 
         root_migration_node = cls("root")
