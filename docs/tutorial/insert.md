@@ -18,7 +18,7 @@ class Product(Document):  # This is the model
     price: Indexed(float)
     category: Category
 
-    class Collection:
+    class Settings:
         name = "products"
         
 chocolate = Category(name="Chocolate", description="A preparation of roasted and ground cacao seeds.")
@@ -28,7 +28,7 @@ marsbar = Product(name="Mars", price=1, category=chocolate)
 This however does not save the documents to the database yet.
 
 ## Insert a single document
-To insert a document into the database, you can call either `insert()` or `create()` on it, the are synonyms:
+To insert a document into the database, you can call either `insert()` or `create()` on it, they are synonyms:
 
 ```python
 await tonybar.insert()

@@ -24,7 +24,7 @@ class Product(Document):  # This is the model
     price: Indexed(float, pymongo.DESCENDING)
     category: Category
 
-    class Collection:
+    class Settings:
         name = "products"
         indexes = [
             [
@@ -87,7 +87,7 @@ The `Indexed` function takes an optional argument `index_type`, which may be set
 class Sample(Document):
     description: Indexed(str, index_type = pymongo.TEXT)
 ```
- The `Indexed` function supports pymogo `IndexModel` kwargs arguments ([PyMongo Documentation](https://pymongo.readthedocs.io/en/stable/api/pymongo/operations.html#pymongo.operations.IndexModel)). 
+ The `Indexed` function supports pymongo `IndexModel` kwargs arguments ([PyMongo Documentation](https://pymongo.readthedocs.io/en/stable/api/pymongo/operations.html#pymongo.operations.IndexModel)). 
  
 For example to create `unique` index:
 
@@ -98,21 +98,21 @@ class Sample(Document):
 
 ## Collection
 
-The inner class `Collection` is used to configure:
+The inner class `Settings` is used to configure:
 
 - MongoDB collection name
 - Indexes
 
 ### Collection name
 
-To set MongoDB collection name you can use the `name` field of the `Collection` inner class.
+To set MongoDB collection name you can use the `name` field of the `Settings` inner class.
 
 ```python
 class Sample(Document):
     num: int
     description: str
 
-    class Collection:
+    class Settings:
         name = "samples"
 ```
 
@@ -132,7 +132,7 @@ class DocumentTestModelWithIndex(Document):
     test_list: List[SubDocument]
     test_str: str
 
-    class Collection:
+    class Settings:
         indexes = [
             "test_int",
             [
